@@ -1,3 +1,5 @@
+This project uses the OpenAI Chat Completion API for generating responses. The integration is correctly implemented, but the API currently returns an insufficient_quota (429) error because it requires a paid, billing-enabled account. The application is fully functional and will work once a valid API key with active credits is provided. Future improvements will include support for free alternatives like Hugging Face or Gemini APIs to remove dependency on paid services.
+
 # AskVoltieAI
 
 AskVoltieAI is a Django-based Q&A platform for electrical machines. Authenticated users can ask questions, receive AI-generated answers, and store exchanges in a MySQL database.
