@@ -5,19 +5,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const spinner = document.getElementById("spinner");
   const btnText = document.getElementById("btn-text");
 
+  const createBubble = (type, html) => {
+    const bubble = document.createElement("div");
+    bubble.className = `chat-bubble ${type}`;
+    bubble.innerHTML = html;
+    return bubble;
+  };
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const textarea = form.querySelector("textarea");
     const question = textarea.value.trim();
     if (!question) return;
 
-    // show spinner
     spinner.classList.remove("d-none");
     btnText.textContent = "Thinking...";
+    askBtn.disabled = true;
 
     const csrfToken = form.querySelector('input[name="csrfmiddlewaretoken"]').value;
     try {
-      const resp = await fetch("/ask/", {
+      const resp = await fetch(form.action || "/ask/", {
         method: "POST",
         headers: {
           "X-CSRFToken": csrfToken,
@@ -27,26 +34,19 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       const data = await resp.json();
       if (resp.ok) {
-        // prepend new entry
-        const card = document.createElement("div");
-        card.className = "card mb-2";
-        card.innerHTML = `
-          <div class="card-body">
-            <strong>Q:</strong> ${data.question}<br/>
-            <strong>A:</strong> ${data.answer.replace(/\n/g, "<br/>")}<br/>
-            <small class="text-muted">Asked: ${data.created_at} via ${data.plugin}</small>
-          </div>
-        `;
-        historyDiv.prepend(card);
+        const botBubble = createBubble("bot", `<strong>VoltieAI:</strong> ${data.answer.replace(/\n/g, "<br />")}`);
+        const userBubble = createBubble("user", `<strong>You:</strong> ${data.question}`);
+        historyDiv.append(botBubble, userBubble);
         textarea.value = "";
       } else {
-        alert(data.error || "Failed to get answer");
+        alert(data.error || "Failed to get answer.");
       }
     } catch (err) {
-      alert("Network error");
+      alert("Network error: " + err.message);
     } finally {
       spinner.classList.add("d-none");
       btnText.textContent = "Ask";
+      askBtn.disabled = false;
     }
   });
 });

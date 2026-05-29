@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")  # ✅ FIXED: Don't hardcode key name as va
 # Turn on/off debug mode
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 # For local testing, you can use: ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Installed apps
@@ -62,11 +62,11 @@ WSGI_APPLICATION = "electrical_qna_project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST", "localhost"),
-        "PORT": os.getenv("DB_PORT", "3306"),
+        "NAME": os.getenv("MYSQL_DATABASE", "electrical_qa_db"),
+        "USER": os.getenv("MYSQL_USER", "django_user"),
+        "PASSWORD": os.getenv("MYSQL_PASSWORD", "django123"),
+        "HOST": os.getenv("MYSQL_HOST", "localhost"),
+        "PORT": os.getenv("MYSQL_PORT", "3306"),
         "OPTIONS": {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
         },

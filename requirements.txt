@@ -12,6 +12,7 @@ idna==3.10
 jiter==0.10.0
 mysqlclient==2.2.7
 openai==1.99.1
+django-widget-tweaks==1.4.12
 pydantic==2.11.7
 pydantic_core==2.33.2
 python-dotenv==1.1.1

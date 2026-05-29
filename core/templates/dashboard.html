@@ -203,7 +203,7 @@
 
     <!-- Chat Input Area -->
     <div class="form-area">
-      <form id="question-form" method="post">
+      <form id="question-form" method="post" action="{% url 'ask_question_ajax' %}">
         {% csrf_token %}
         <div class="form-group mb-3">
           {{ form.question_text }}

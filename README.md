@@ -1,65 +1,131 @@
-# voltieai-chatbot
-A Django-based interactive Q&amp;A chatbot platform for Electrical Machines using MySQL and a ChatGPT-compatible API (like Groq).
-=======
-Intern Full Stack Development Test: Electrical Machines Q&A Platform
+# AskVoltieAI
 
-Project Overview:
+AskVoltieAI is a Django-based Q&A platform for electrical machines. Authenticated users can ask questions, receive AI-generated answers, and store exchanges in a MySQL database.
 
-You are tasked with building a web application using Django and MySQL to create a platform for users to ask questions related to electrical machines.
-The application should pull relevant data from a ChatGPT plugin to provide accurate answers to user queries.
+## Features
 
-Requirements:
+- User registration and login
+- Authenticated question submission
+- OpenAI ChatGPT integration for electrical machine answers
+- Persistent question and answer history per user
+- Responsive, AJAX-enhanced interface
+- Sample seed data for 10 users and 10 Q&A entries
 
-1. Backend Development:
-   * Implement a Django web application with the following features:
-    * User registration and authentication system.
-     * Ability for authenticated users to ask questions related to electrical machines.
-     * Store questions and answers in a MySQL database.
-     * Integration with a ChatGPT plugin to pull relevant data for answering questions on electrical machines.
+## Database Schema
 
-2. Frontend Development:
-   * Create a user-friendly interface for asking questions and displaying answers.
-   * Ensure responsiveness and usability across different devices.
+The app uses the following table structure for electrical machine Q&A:
 
-3. ChatGPT Integration:
-   * Utilize the ChatGPT plugin to query for relevant answers based on user questions related to electrical machines.
-   * Display the retrieved answers along with the questions in the user interface.
+- `user` (ForeignKey to Django User)
+- `question_text` (TextField)
+- `answer_text` (TextField)
+- `plugin_source` (CharField)
+- `created_at` (DateTimeField)
 
-4. Database Design:
-   * Design a MySQL database schema to store user information, questions, and answers related to electrical machines.
+This schema satisfies the requirement for 5 fields/columns in the Q&A table, plus the default Django `id` field.
 
-5. Ubuntu OS Deployment:
-   * Deploy the application on an Ubuntu server.
-   * Ensure proper setup and configuration for smooth functioning of the application.
+## Setup
 
-Instructions:
+1. Clone the repository.
+2. Create and activate a Python virtual environment:
 
-* Number of users : 10, Number of fields/columns for database: 5, Number of data/rows: 10
-* Fork this GitHub repository: [Intern Full Stack Development Test](https://github.com/vigneshranganathan/intern_full_stack_development/)
-* Complete the tasks described above within 3 days.
-* Ensure your code is well*documented and follows PEP 8 standards.
-* Use Django for backend development and MySQL as the database backend.
-* Integrate the ChatGPT plugin to pull relevant data for answering questions on electrical machines.
-* Deploy the application on an Ubuntu server (you can use any cloud provider or local setup).
-* Once completed, submit your solution by sending a pull request to the main repository.
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
-Evaluation Criteria:
+3. Install requirements:
 
-Your solution will be evaluated based on the following criteria:
+```bash
+pip install -r requirements.txt
+```
 
-1. Functionality: Does the web application meet the specified requirements? Are users able to register, ask questions related to electrical machines, and view relevant answers?
+4. Copy environment variables:
 
-2. Code Quality: Is the code well*structured, readable, and maintainable? Are best practices followed?
+```bash
+cp .env.example .env
+```
 
-3. Integration with ChatGPT Plugin: Is the ChatGPT plugin integrated effectively to provide relevant answers? Are queries sent to the plugin appropriately and responses handled correctly?
+5. Edit `.env` and provide values for `SECRET_KEY`, `OPENAI_API_KEY`, and MySQL settings.
 
-4. Database Design: Is the database schema well*designed and appropriate for the task? Are relationships between entities defined correctly?
+6. Create the MySQL database and user.
 
-5. Frontend Design: Is the user interface intuitive and user*friendly? Does it provide a smooth experience for asking questions and viewing answers?
+7. Run Django migrations:
 
-6. Ubuntu OS Deployment: Is the application successfully deployed on an Ubuntu server? Is it accessible and functional?
+```bash
+python manage.py migrate
+```
 
-7. Documentation: Is the code adequately documented? Are setup instructions provided for deployment on an Ubuntu server?
+8. Seed sample users and Q&A entries:
 
-Note: If you encounter any issues or have questions during the test, feel free to reach out for clarification or assistance.
+```bash
+python manage.py seed_data
+```
 
+9. Start the development server:
+
+```bash
+python manage.py runserver
+```
+
+## Environment Variables
+
+Required values in `.env`:
+
+- `SECRET_KEY`
+- `DEBUG` (`True` or `False`)
+- `ALLOWED_HOSTS` (comma-separated list)
+- `MYSQL_DATABASE`
+- `MYSQL_USER`
+- `MYSQL_PASSWORD`
+- `MYSQL_HOST`
+- `MYSQL_PORT`
+- `OPENAI_API_KEY`
+- `OPENAI_MODEL` (optional, defaults to `gpt-3.5-turbo`)
+
+## Running the App
+
+Visit:
+
+```bash
+http://127.0.0.1:8000/
+```
+
+Seeded sample users are available as:
+
+- `user1` through `user10`
+- password: `password123`
+
+## Ubuntu Deployment
+
+Example Ubuntu deployment steps:
+
+```bash
+sudo apt update
+sudo apt install python3-pip python3-venv mysql-server libmysqlclient-dev
+sudo mysql -e "CREATE DATABASE electrical_qa_db; CREATE USER 'django_user'@'localhost' IDENTIFIED BY 'django123'; GRANT ALL PRIVILEGES ON electrical_qa_db.* TO 'django_user'@'localhost'; FLUSH PRIVILEGES;"
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+# update .env with real values
+python manage.py migrate
+python manage.py collectstatic --noinput
+python manage.py runserver 0.0.0.0:8000
+```
+
+For production, use Gunicorn and Nginx as the WSGI server and reverse proxy.
+
+## Notes
+
+- ChatGPT integration is implemented through OpenAI chat completions.
+- AJAX handles question submission and updates the chat history without reloading the page.
+- The admin site registers the `QAEntry` model for review.
+
+## Helpful Commands
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py seed_data
+```
