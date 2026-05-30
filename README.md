@@ -6,11 +6,11 @@ AskVoltieAI is a Django-based Q&A platform for electrical machines. Authenticate
 
 ## Screenshots
 
-### Login Page
-![Login](screenshots/login.png)
-
 ### Register Page
 ![Register](screenshots/register.png)
+
+### Login Page
+![Login](screenshots/login.png)
 
 #### AI Response Example
 ![Chat](screenshots/chat1.png)
