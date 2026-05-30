@@ -47,10 +47,7 @@ def logout_view(request):
 def dashboard_view(request):
     form = QuestionForm()
     entries = QAEntry.objects.filter(user=request.user).order_by("-created_at")[:50]
-    return render(request, "dashboard.html", {
-        "form": form,
-        "entries": entries
-    })
+    return render(request, "dashboard.html", {"form": form, "entries": entries})
 
 
 @login_required
@@ -70,11 +67,13 @@ def ask_question_ajax(request):
             plugin_source="gemini",
         )
 
-        return JsonResponse({
-            "question": entry.question_text,
-            "answer": entry.answer_text,
-            "created_at": entry.created_at.strftime("%Y-%m-%d %H:%M"),
-            "plugin": entry.plugin_source,
-        })
+        return JsonResponse(
+            {
+                "question": entry.question_text,
+                "answer": entry.answer_text,
+                "created_at": entry.created_at.strftime("%Y-%m-%d %H:%M"),
+                "plugin": entry.plugin_source,
+            }
+        )
 
     return JsonResponse({"error": "Invalid method"}, status=405)

@@ -11,6 +11,7 @@ if gemini_api_key:
 model_name = os.getenv("GEMINI_MODEL", "models/gemini-3.5-flash")
 model = genai.GenerativeModel(model_name)
 
+
 def get_answer_from_chatgpt(question: str) -> str:
     prompt = (
         "You are a helpful assistant that answers questions about electrical machines. "
@@ -19,9 +20,7 @@ def get_answer_from_chatgpt(question: str) -> str:
     )
 
     try:
-        response = model.generate_content(
-            f"{prompt}\n\nQuestion: {question}"
-        )
+        response = model.generate_content(f"{prompt}\n\nQuestion: {question}")
 
         return response.text
 

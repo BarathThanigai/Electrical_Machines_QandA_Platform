@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from core.models import QAEntry
 
+
 class Command(BaseCommand):
     help = "Seed 10 users and sample Q&A"
 
@@ -10,7 +11,9 @@ class Command(BaseCommand):
         for i in range(1, 11):
             username = f"user{i}"
             if not User.objects.filter(username=username).exists():
-                user = User.objects.create_user(username=username, password="password123")
+                user = User.objects.create_user(
+                    username=username, password="password123"
+                )
             else:
                 user = User.objects.get(username=username)
             # sample question

@@ -15,14 +15,28 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='QAEntry',
+            name="QAEntry",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('question_text', models.TextField()),
-                ('answer_text', models.TextField()),
-                ('plugin_source', models.CharField(default='chatgpt', max_length=100)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("question_text", models.TextField()),
+                ("answer_text", models.TextField()),
+                ("plugin_source", models.CharField(default="chatgpt", max_length=100)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

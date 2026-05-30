@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "core",  # Your app name
-    'widget_tweaks',
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -101,7 +101,7 @@ STATICFILES_DIRS = [BASE_DIR / "core" / "static"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_URL = '/login/'
+LOGIN_URL = "/login/"
 
-LOGIN_REDIRECT_URL = 'dashboard'  # or wherever you want to go after login
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = "dashboard"  # or wherever you want to go after login
+LOGOUT_REDIRECT_URL = "login"
