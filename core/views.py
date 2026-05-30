@@ -67,7 +67,7 @@ def ask_question_ajax(request):
             user=request.user,
             question_text=question_text,
             answer_text=answer,
-            plugin_source="chatgpt",
+            plugin_source="gemini",
         )
 
         return JsonResponse({

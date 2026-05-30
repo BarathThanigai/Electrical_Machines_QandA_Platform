@@ -218,24 +218,5 @@
   </div>
 </div>
 
-<script>
-  const form = document.getElementById("question-form");
-  const btnText = document.getElementById("btn-text");
-  const spinner = document.getElementById("spinner");
-  const askBtn = document.getElementById("ask-btn");
-  const historyBox = document.getElementById("history");
 
-  form.addEventListener("submit", function () {
-    btnText.innerText = "Thinking...";
-    spinner.classList.remove("d-none");
-    askBtn.disabled = true;
-  });
-
-  window.onload = function () {
-    btnText.innerText = "Ask";
-    spinner.classList.add("d-none");
-    askBtn.disabled = false;
-    historyBox.scrollTop = historyBox.scrollHeight;
-  };
-</script>
 {% endblock %}

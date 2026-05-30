@@ -8,7 +8,7 @@ AskVoltieAI is a Django-based Q&A platform for electrical machines. Authenticate
 
 - User registration and login
 - Authenticated question submission
-- OpenAI ChatGPT integration for electrical machine answers
+- Gemini API integration for electrical machine answers
 - Persistent question and answer history per user
 - Responsive, AJAX-enhanced interface
 - Sample seed data for 10 users and 10 Q&A entries
@@ -47,7 +47,7 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-5. Edit `.env` and provide values for `SECRET_KEY`, `OPENAI_API_KEY`, and MySQL settings.
+5. Edit `.env` and provide values for `SECRET_KEY`, `GEMINI_API_KEY`, and MySQL settings.
 
 6. Create the MySQL database and user.
 
@@ -81,8 +81,8 @@ Required values in `.env`:
 - `MYSQL_PASSWORD`
 - `MYSQL_HOST`
 - `MYSQL_PORT`
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL` (optional, defaults to `gpt-3.5-turbo`)
+- `GEMINI_API_KEY`
+- `GEMINI_MODEL` (optional, defaults to `models/gemini-3.5-flash`)
 
 ## Running the App
 
@@ -119,7 +119,7 @@ For production, use Gunicorn and Nginx as the WSGI server and reverse proxy.
 
 ## Notes
 
-- ChatGPT integration is implemented through OpenAI chat completions.
+- Gemini API integration is implemented through `google-generativeai`.
 - AJAX handles question submission and updates the chat history without reloading the page.
 - The admin site registers the `QAEntry` model for review.
 

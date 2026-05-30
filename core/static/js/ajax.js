@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const spinner = document.getElementById("spinner");
   const btnText = document.getElementById("btn-text");
 
+  if (!form || !historyDiv) {
+    return;
+  }
+
   const createBubble = (type, html) => {
     const bubble = document.createElement("div");
     bubble.className = `chat-bubble ${type}`;
@@ -15,8 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const textarea = form.querySelector("textarea");
-    const question = textarea.value.trim();
-    if (!question) return;
+    const question = textarea?.value.trim() || "";
+    if (!question) {
+      return;
+    }
 
     spinner.classList.remove("d-none");
     btnText.textContent = "Thinking...";
@@ -35,8 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await resp.json();
       if (resp.ok) {
         const botBubble = createBubble("bot", `<strong>VoltieAI:</strong> ${data.answer.replace(/\n/g, "<br />")}`);
-        const userBubble = createBubble("user", `<strong>You:</strong> ${data.question}`);
-        historyDiv.append(botBubble, userBubble);
+        const userBubble = createBubble("user", `<strong>You:</strong> ${question}`);
+        historyDiv.prepend(botBubble, userBubble);
+        historyDiv.scrollTop = 0;
         textarea.value = "";
       } else {
         alert(data.error || "Failed to get answer.");

@@ -1,34 +1,29 @@
 import os
-from openai import OpenAI
+import google.generativeai as genai
 from dotenv import load_dotenv
 
-load_dotenv()  # Load environment variables from .env
+load_dotenv()
 
+gemini_api_key = os.getenv("GEMINI_API_KEY")
+if gemini_api_key:
+    genai.configure(api_key=gemini_api_key)
+
+model_name = os.getenv("GEMINI_MODEL", "models/gemini-3.5-flash")
+model = genai.GenerativeModel(model_name)
 
 def get_answer_from_chatgpt(question: str) -> str:
-    """Return an electrical machines answer from OpenAI Chat Completion."""
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        return "Error: OPENAI_API_KEY is not configured. Please set it in .env."
-
-    client = OpenAI(api_key=api_key)
-    model = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
     prompt = (
         "You are a helpful assistant that answers questions about electrical machines. "
-        "Provide clear, concise explanations and mention relevant concepts like motors, generators, rotors, stators, torque, and efficiency."
+        "Provide clear, concise explanations and mention relevant concepts like motors, "
+        "generators, rotors, stators, torque, and efficiency when relevant."
     )
 
     try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": prompt},
-                {"role": "user", "content": question},
-            ],
-            max_tokens=500,
-            temperature=0.2,
+        response = model.generate_content(
+            f"{prompt}\n\nQuestion: {question}"
         )
-        answer = response.choices[0].message.content
-        return answer.strip()
-    except Exception as exception:
-        return f"Error: {str(exception)}"
+
+        return response.text
+
+    except Exception as e:
+        return f"Error: {str(e)}"
