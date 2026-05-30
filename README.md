@@ -4,6 +4,18 @@ This project uses the Google Gemini API for generating responses to electrical m
 
 AskVoltieAI is a Django-based Q&A platform for electrical machines. Authenticated users can ask questions, receive AI-generated answers, and store exchanges in a MySQL database.
 
+## 📸 Screenshots
+
+### Login Page
+![Login](screenshots/login.png)
+
+### Register Page
+![Register](screenshots/register.png)
+
+#### AI Response Example
+![Chat](screenshots/chat1.png)
+![Chat2](screenshots/chat2.png)
+
 ## Features
 
 - User registration and login
