@@ -1,4 +1,4 @@
-This project uses the OpenAI Chat Completion API for generating responses. The integration is correctly implemented, but the API currently returns an insufficient_quota (429) error because it requires a paid, billing-enabled account. The application is fully functional and will work once a valid API key with active credits is provided. Future improvements will include support for free alternatives like Hugging Face or Gemini APIs to remove dependency on paid services.
+This project uses the Google Gemini API for generating responses to electrical machine questions. The integration is fully functional and provides AI-generated answers based on user queries. The application requires a valid GEMINI_API_KEY configured in the .env file. Future improvements may include support for additional AI providers such as OpenAI and Hugging Face to offer greater flexibility and model choice.
 
 # AskVoltieAI
 
@@ -12,6 +12,15 @@ AskVoltieAI is a Django-based Q&A platform for electrical machines. Authenticate
 - Persistent question and answer history per user
 - Responsive, AJAX-enhanced interface
 - Sample seed data for 10 users and 10 Q&A entries
+
+## Tech Stack
+
+- Django 5
+- MySQL
+- Gemini API
+- Bootstrap 5
+- JavaScript (AJAX)
+- Python
 
 ## Database Schema
 
