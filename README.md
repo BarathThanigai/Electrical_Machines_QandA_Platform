@@ -138,9 +138,12 @@ python manage.py runserver 0.0.0.0:8000
 
 For production, use Gunicorn and Nginx as the WSGI server and reverse proxy.
 
+- The UI includes a light/dark mode toggle accessible from the top navigation bar.
+
 ## Notes
 
 - Gemini API integration is implemented through `google-generativeai`.
+- The UI supports both light and dark themes via the top navigation toggle.
 - AJAX handles question submission and updates the chat history without reloading the page.
 - The admin site registers the `QAEntry` model for review.
 
